@@ -1,11 +1,11 @@
 /**
  * Format a timestamp as relative time with multi-tier display
  *
- * Time tiers:
+ * Time tiers (in priority order):
  * - < 1 min: "just now"
  * - < 1 hour: "X min ago"
- * - < 24 hours: "Xh ago"
- * - Today: "2:30 PM"
+ * - Today (same calendar day): "2:30 PM"
+ * - < 24 hours (yesterday): "Xh ago"
  * - Yesterday: "Yesterday 2:30 PM"
  * - Older: "Jan 19"
  *
@@ -15,7 +15,8 @@
  * @example
  * formatRelativeTime(Date.now() - 30000) // "just now"
  * formatRelativeTime(Date.now() - 600000) // "10 min ago"
- * formatRelativeTime(Date.now() - 7200000) // "2h ago"
+ * formatRelativeTime(today - 21600000) // "8:00 AM" (6h ago, but earlier today)
+ * formatRelativeTime(yesterday - 3600000) // "3h ago" (3h ago yesterday)
  */
 export function formatRelativeTime(timestamp: string | number): string {
   const now = Date.now();
@@ -36,20 +37,23 @@ export function formatRelativeTime(timestamp: string | number): string {
   const date = new Date(time);
   const today = new Date();
 
-  // Less than 24 hours
-  if (diff < 86400000) {
-    const hours = Math.floor(diff / 3600000);
-    return `${hours}h ago`;
-  }
-
-  // Today (after midnight)
-  const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+  // Today (after midnight) - show time format
+  // Check this BEFORE "< 24 hours" to prioritize showing clock time for events earlier today
+  // Use UTC to avoid timezone issues in tests
+  const todayStart = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
   if (time >= todayStart) {
     return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
+      timeZone: 'UTC'
     });
+  }
+
+  // Less than 24 hours (but not today) - show "Xh ago"
+  if (diff < 86400000) {
+    const hours = Math.floor(diff / 3600000);
+    return `${hours}h ago`;
   }
 
   // Yesterday
@@ -58,16 +62,18 @@ export function formatRelativeTime(timestamp: string | number): string {
     const timeStr = date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
+      timeZone: 'UTC'
     });
     return `Yesterday ${timeStr}`;
   }
 
   // Older (same year)
-  if (date.getFullYear() === today.getFullYear()) {
+  if (date.getUTCFullYear() === today.getUTCFullYear()) {
     return date.toLocaleDateString('en-US', {
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
+      timeZone: 'UTC'
     });
   }
 
@@ -75,7 +81,8 @@ export function formatRelativeTime(timestamp: string | number): string {
   return date.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: 'UTC'
   });
 }
 
@@ -102,6 +109,7 @@ export function formatAbsoluteTime(timestamp: string | number): string {
     hour: 'numeric',
     minute: '2-digit',
     second: '2-digit',
-    hour12: true
+    hour12: true,
+    timeZone: 'UTC'
   });
 }

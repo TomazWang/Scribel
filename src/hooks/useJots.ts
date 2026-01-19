@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { createJot as apiCreateJot, getJots as apiGetJots, deleteJot as apiDeleteJot } from '../api/jots';
 import type { Jot } from '../types/jot';
 
@@ -36,6 +36,7 @@ export function useJots(): UseJotsReturn {
   const [jots, setJots] = useState<Jot[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const previousJotsRef = useRef<Jot[]>([]);
 
   const loadJots = useCallback(async () => {
     try {
@@ -76,9 +77,9 @@ export function useJots(): UseJotsReturn {
       file_path: ''
     };
 
-    // Optimistic update: add temp jot immediately
-    setJots(prev => [...prev, tempJot]);
+    // Clear error state and add temp jot
     setError(null);
+    setJots(prev => [...prev, tempJot]);
 
     try {
       // Call backend API
@@ -89,12 +90,14 @@ export function useJots(): UseJotsReturn {
         prev.map(jot => jot.id === tempId ? createdJot : jot)
       );
     } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to create jot';
+      console.error('Failed to create jot:', err);
+
+      // Set error state BEFORE rollback
+      setError(errorMessage);
+
       // Rollback: remove temp jot on error
       setJots(prev => prev.filter(jot => jot.id !== tempId));
-
-      const errorMessage = err instanceof Error ? err.message : 'Failed to create jot';
-      setError(errorMessage);
-      console.error('Failed to create jot:', err);
 
       // Re-throw for component error handling
       throw err;
@@ -102,26 +105,26 @@ export function useJots(): UseJotsReturn {
   }, []);
 
   const deleteJot = useCallback(async (id: string) => {
-    // Store original jots for rollback using functional update
-    let previousJots: Jot[] = [];
-
-    // Optimistic update: remove jot immediately
+    // Clear error state first, then optimistic update
+    setError(null);
     setJots(prev => {
-      previousJots = prev;
+      // Store original jots for rollback in ref
+      previousJotsRef.current = prev;
       return prev.filter(jot => jot.id !== id);
     });
-    setError(null);
 
     try {
       // Call backend API
       await apiDeleteJot(id);
     } catch (err) {
-      // Rollback: restore original jots on error
-      setJots(previousJots);
-
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete jot';
-      setError(errorMessage);
       console.error('Failed to delete jot:', err);
+
+      // Set error state BEFORE rollback
+      setError(errorMessage);
+
+      // Rollback: restore original jots on error from ref
+      setJots(previousJotsRef.current);
 
       // Re-throw for component error handling
       throw err;
