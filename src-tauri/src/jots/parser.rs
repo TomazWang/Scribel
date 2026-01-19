@@ -1,15 +1,21 @@
 use crate::jots::models::{Jot, JotError, JotFrontmatter};
 use chrono::{DateTime, Utc};
+use once_cell::sync::Lazy;
 use regex::Regex;
+
+/// Lazy-compiled regex for tag extraction
+static TAG_REGEX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"#([a-zA-Z][a-zA-Z0-9_-]*)").expect("Invalid tag regex"));
+
+/// Lazy-compiled regex for link extraction
+static LINK_REGEX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"\[\[([^\]]+)\]\]").expect("Invalid link regex"));
 
 /// Extract #tags from content
 /// Input: "Meeting about #work and #project-x"
 /// Output: ["work", "project-x"]
 pub fn extract_tags(content: &str) -> Vec<String> {
-    // Compile regex on each call (small performance cost, but simple and safe)
-    let tag_regex = Regex::new(r"#([a-zA-Z][a-zA-Z0-9_-]*)").expect("Invalid tag regex");
-
-    tag_regex
+    TAG_REGEX
         .captures_iter(content)
         .map(|cap| cap[1].to_string())
         .collect()
@@ -19,10 +25,7 @@ pub fn extract_tags(content: &str) -> Vec<String> {
 /// Input: "Check [[Project Notes]] and [[Meeting Log]]"
 /// Output: ["Project Notes", "Meeting Log"]
 pub fn extract_links(content: &str) -> Vec<String> {
-    // Compile regex on each call (small performance cost, but simple and safe)
-    let link_regex = Regex::new(r"\[\[([^\]]+)\]\]").expect("Invalid link regex");
-
-    link_regex
+    LINK_REGEX
         .captures_iter(content)
         .map(|cap| cap[1].to_string())
         .collect()

@@ -35,7 +35,17 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            commands::jots::create_jot,
+            commands::jots::get_jots,
+            commands::jots::get_jot,
+            commands::jots::update_jot,
+            commands::jots::delete_jot,
+            commands::jots::search_jots,
+            commands::jots::set_jot_promoted,
+            commands::jots::rebuild_jot_index,
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

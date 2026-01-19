@@ -20,14 +20,14 @@
 
 **Purpose**: Project initialization and dependency configuration
 
-- [ ] T001 Add Rust dependencies to src-tauri/Cargo.toml (rusqlite, serde_yaml, thiserror, regex, chrono, notify, rand)
-- [ ] T002 Create jots module structure: src-tauri/src/jots/ with mod.rs, models.rs, storage.rs, parser.rs, index.rs, watcher.rs
-- [ ] T003 [P] Create db module structure: src-tauri/src/db/ with mod.rs, connection.rs, migrations.rs
-- [ ] T004 [P] Create commands module: src-tauri/src/commands/ with mod.rs, jots.rs
-- [ ] T005 [P] Create config module: src-tauri/src/config.rs
+- [X] T001 Add Rust dependencies to src-tauri/Cargo.toml (rusqlite, serde_yaml, thiserror, regex, chrono, notify, rand)
+- [X] T002 Create jots module structure: src-tauri/src/jots/ with mod.rs, models.rs, storage.rs, parser.rs, index.rs, watcher.rs
+- [X] T003 [P] Create db module structure: src-tauri/src/db/ with mod.rs, connection.rs, migrations.rs
+- [X] T004 [P] Create commands module: src-tauri/src/commands/ with mod.rs, jots.rs
+- [X] T005 [P] Create config module: src-tauri/src/config.rs
 - [ ] T006 [P] Create frontend directories: src/components/, src/hooks/, src/api/, src/types/, src/utils/
-- [ ] T007 [P] Create test directories: src-tauri/tests/ and src/__tests__/utils/, src/__tests__/components/
-- [ ] T008 Run cargo build to verify Rust dependencies
+- [X] T007 [P] Create test directories: src-tauri/tests/ and src/__tests__/utils/, src/__tests__/components/
+- [X] T008 Run cargo build to verify Rust dependencies
 - [ ] T009 Run npm install to verify frontend dependencies
 
 **Checkpoint**: Project structure created, dependencies installed
@@ -40,15 +40,15 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T010 Implement SQLite connection with WAL mode in src-tauri/src/db/connection.rs
-- [ ] T011 Implement schema migrations (jot_index table) in src-tauri/src/db/migrations.rs
-- [ ] T012 Create Jot struct with serde derives in src-tauri/src/jots/models.rs
-- [ ] T013 [P] Create JotFrontmatter struct in src-tauri/src/jots/models.rs
-- [ ] T014 [P] Create CreateJotInput and UpdateJotInput structs in src-tauri/src/jots/models.rs
-- [ ] T015 [P] Create JotError enum with thiserror in src-tauri/src/jots/models.rs
-- [ ] T016 Export jots module in src-tauri/src/jots/mod.rs
-- [ ] T017 Export db module in src-tauri/src/db/mod.rs
-- [ ] T018 Setup Tauri app with db initialization and state management in src-tauri/src/lib.rs
+- [X] T010 Implement SQLite connection with WAL mode in src-tauri/src/db/connection.rs
+- [X] T011 Implement schema migrations (jot_index table) in src-tauri/src/db/migrations.rs
+- [X] T012 Create Jot struct with serde derives in src-tauri/src/jots/models.rs
+- [X] T013 [P] Create JotFrontmatter struct in src-tauri/src/jots/models.rs
+- [X] T014 [P] Create CreateJotInput and UpdateJotInput structs in src-tauri/src/jots/models.rs
+- [X] T015 [P] Create JotError enum with thiserror in src-tauri/src/jots/models.rs
+- [X] T016 Export jots module in src-tauri/src/jots/mod.rs
+- [X] T017 Export db module in src-tauri/src/db/mod.rs
+- [X] T018 Setup Tauri app with db initialization and state management in src-tauri/src/lib.rs
 - [ ] T019 Create TypeScript Jot interface in src/types/jot.ts
 
 **Checkpoint**: Foundation ready - database initialized, core types defined, Tauri configured
@@ -63,42 +63,42 @@
 
 ### Tests for User Story 1
 
-- [ ] T020 [P] [US1] Write test for extract_tags function in src-tauri/src/jots/parser.rs
-- [ ] T021 [P] [US1] Write test for extract_links function in src-tauri/src/jots/parser.rs
-- [ ] T022 [P] [US1] Write test for parse_jot_file function in src-tauri/src/jots/parser.rs
-- [ ] T023 [P] [US1] Write test for serialize_jot function in src-tauri/src/jots/parser.rs
+- [X] T020 [P] [US1] Write test for extract_tags function in src-tauri/src/jots/parser.rs
+- [X] T021 [P] [US1] Write test for extract_links function in src-tauri/src/jots/parser.rs
+- [X] T022 [P] [US1] Write test for parse_jot_file function in src-tauri/src/jots/parser.rs
+- [X] T023 [P] [US1] Write test for serialize_jot function in src-tauri/src/jots/parser.rs
 - [ ] T024 [P] [US1] Write integration test for create and read jot in src-tauri/tests/jot_storage.rs
 - [ ] T025 [P] [US1] Write integration test for delete jot in src-tauri/tests/jot_storage.rs
 - [ ] T026 [P] [US1] Write integration test for index rebuild in src-tauri/tests/jot_storage.rs
 
 ### Implementation for User Story 1
 
-- [ ] T027 [US1] Implement extract_tags using regex in src-tauri/src/jots/parser.rs
-- [ ] T028 [US1] Implement extract_links using regex in src-tauri/src/jots/parser.rs
-- [ ] T029 [US1] Implement parse_jot_file (frontmatter + content parsing) in src-tauri/src/jots/parser.rs
-- [ ] T030 [US1] Implement serialize_jot (Jot to markdown with frontmatter) in src-tauri/src/jots/parser.rs
-- [ ] T031 [US1] Implement generate_jot_id function (timestamp + hex) in src-tauri/src/jots/storage.rs
-- [ ] T032 [US1] Implement create_jot (write file + return Jot) in src-tauri/src/jots/storage.rs
-- [ ] T033 [US1] Implement read_jot (parse file) in src-tauri/src/jots/storage.rs
-- [ ] T034 [US1] Implement update_jot (rewrite file with new content) in src-tauri/src/jots/storage.rs
-- [ ] T035 [US1] Implement delete_jot (remove file) in src-tauri/src/jots/storage.rs
-- [ ] T036 [P] [US1] Implement insert_jot for SQLite index in src-tauri/src/jots/index.rs
-- [ ] T037 [P] [US1] Implement update_jot_index in src-tauri/src/jots/index.rs
-- [ ] T038 [P] [US1] Implement delete_jot_index in src-tauri/src/jots/index.rs
-- [ ] T039 [P] [US1] Implement get_jots with pagination in src-tauri/src/jots/index.rs
-- [ ] T040 [P] [US1] Implement search_jots with LIKE query in src-tauri/src/jots/index.rs
-- [ ] T041 [US1] Implement create_jot Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T042 [US1] Implement get_jots Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T043 [US1] Implement get_jot Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T044 [US1] Implement update_jot Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T045 [US1] Implement delete_jot Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T046 [US1] Implement search_jots Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T047 [US1] Implement set_jot_promoted Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T048 [US1] Implement rebuild_jot_index Tauri command in src-tauri/src/commands/jots.rs
-- [ ] T049 [US1] Register all jot commands in Tauri builder in src-tauri/src/lib.rs
+- [X] T027 [US1] Implement extract_tags using regex in src-tauri/src/jots/parser.rs
+- [X] T028 [US1] Implement extract_links using regex in src-tauri/src/jots/parser.rs
+- [X] T029 [US1] Implement parse_jot_file (frontmatter + content parsing) in src-tauri/src/jots/parser.rs
+- [X] T030 [US1] Implement serialize_jot (Jot to markdown with frontmatter) in src-tauri/src/jots/parser.rs
+- [X] T031 [US1] Implement generate_jot_id function (timestamp + hex) in src-tauri/src/jots/storage.rs
+- [X] T032 [US1] Implement create_jot (write file + return Jot) in src-tauri/src/jots/storage.rs
+- [X] T033 [US1] Implement read_jot (parse file) in src-tauri/src/jots/storage.rs
+- [X] T034 [US1] Implement update_jot (rewrite file with new content) in src-tauri/src/jots/storage.rs
+- [X] T035 [US1] Implement delete_jot (remove file) in src-tauri/src/jots/storage.rs
+- [X] T036 [P] [US1] Implement insert_jot for SQLite index in src-tauri/src/jots/index.rs
+- [X] T037 [P] [US1] Implement update_jot_index in src-tauri/src/jots/index.rs
+- [X] T038 [P] [US1] Implement delete_jot_index in src-tauri/src/jots/index.rs
+- [X] T039 [P] [US1] Implement get_jots with pagination in src-tauri/src/jots/index.rs
+- [X] T040 [P] [US1] Implement search_jots with LIKE query in src-tauri/src/jots/index.rs
+- [X] T041 [US1] Implement create_jot Tauri command in src-tauri/src/commands/jots.rs
+- [X] T042 [US1] Implement get_jots Tauri command in src-tauri/src/commands/jots.rs
+- [X] T043 [US1] Implement get_jot Tauri command in src-tauri/src/commands/jots.rs
+- [X] T044 [US1] Implement update_jot Tauri command in src-tauri/src/commands/jots.rs
+- [X] T045 [US1] Implement delete_jot Tauri command in src-tauri/src/commands/jots.rs
+- [X] T046 [US1] Implement search_jots Tauri command in src-tauri/src/commands/jots.rs
+- [X] T047 [US1] Implement set_jot_promoted Tauri command in src-tauri/src/commands/jots.rs
+- [X] T048 [US1] Implement rebuild_jot_index Tauri command in src-tauri/src/commands/jots.rs
+- [X] T049 [US1] Register all jot commands in Tauri builder in src-tauri/src/lib.rs
 - [ ] T050 [US1] Implement file watcher for jots folder in src-tauri/src/jots/watcher.rs
 - [ ] T051 [US1] Integrate file watcher in Tauri setup in src-tauri/src/lib.rs
-- [ ] T052 [US1] Run cargo test to verify all backend tests pass
+- [X] T052 [US1] Run cargo test to verify all backend tests pass
 - [ ] T053 [US1] Manually test create_jot via Tauri DevTools console
 
 **Checkpoint**: Backend fully functional - jots can be created, read, updated, deleted via Tauri commands
