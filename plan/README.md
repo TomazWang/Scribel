@@ -27,6 +27,17 @@ plan/
 2. **Feature Specs**: Each feature has a dedicated markdown file
 3. **Speckit Integration**: Use `/specify` to generate detailed specs, plans, and tasks for each feature
 
+## Keeping Source Documents Updated
+
+When updating or creating specs, **always check and update these source documents if needed**:
+
+| Document | Purpose | Update When... |
+|----------|---------|----------------|
+| `PRD.md` | Up-to-date high-level product overview | Features, requirements, or scope changes |
+| `TECH_DESIGN.md` | Up-to-date high-level architecture & core tech | Architecture, tech stack, or design patterns change |
+
+These documents don't need implementation details, but must stay accurate. If implementation reveals conflicts with the documented design, update the source documents to reflect the actual decisions made.
+
 ## Naming Convention
 
 - Epic folders: `epic-N-short-name/`

@@ -31,3 +31,14 @@ specs/
 1. **Plan** documents define WHAT to build (high-level requirements)
 2. **Spec** documents define HOW to build it (technical design)
 3. Use `/speckit.implement` to generate code from specs
+
+## Keeping Source Documents Updated
+
+When updating or creating specs, **always check and update these source documents if needed**:
+
+| Document | Purpose | Update When... |
+|----------|---------|----------------|
+| `plan/PRD.md` | Up-to-date high-level product overview | Features, requirements, or scope changes |
+| `plan/TECH_DESIGN.md` | Up-to-date high-level architecture & core tech | Architecture, tech stack, or design patterns change |
+
+These documents don't need implementation details, but must stay accurate. If implementation reveals conflicts with the documented design, update the source documents to reflect the actual decisions made.
