@@ -4,7 +4,8 @@
       "Bash(ls:*)",
       "Bash(specify init:*)",
       "Bash(git mv:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git rev-parse:*)"
     ]
   }
 }
