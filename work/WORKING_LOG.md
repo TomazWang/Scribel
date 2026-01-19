@@ -384,14 +384,15 @@ This creates the worktree structure:
 ```
 robocosmo.scribel/
 ├── Scribel/           ← Main repo (THE_PO, MASTER_TL, human)
-├── worktree-fe/       ← FE_DUDES workspace
-├── worktree-be/       ← BE_GEEKS workspace
-└── worktree-ai/       ← AI_GODS workspace
+└── worktrees/
+    ├── frontend/      ← FE_DUDES workspace
+    ├── backend/       ← BE_GEEKS workspace
+    └── ai/            ← AI_GODS workspace
 ```
 
 **Launch Backend Agent (BE_GEEKS)**:
 ```bash
-cd ../worktree-be
+cd worktrees/backend
 claude  # or your AI assistant
 
 # Tell it: "I am BE_GEEKS. Read work/BE_GEEKS_TASKS.md..."
@@ -399,7 +400,7 @@ claude  # or your AI assistant
 
 **Launch Frontend Agent (FE_DUDES)**:
 ```bash
-cd ../worktree-fe
+cd worktrees/frontend
 claude  # or your AI assistant
 
 # Tell it: "I am FE_DUDES. Read work/FE_DUDES_TASKS.md..."
@@ -407,7 +408,7 @@ claude  # or your AI assistant
 
 **Launch AI Agent (AI_GODS)**:
 ```bash
-cd ../worktree-ai
+cd worktrees/ai
 claude  # or your AI assistant
 
 # Tell it: "I am AI_GODS. Read work/AI_GODS_TASKS.md..."

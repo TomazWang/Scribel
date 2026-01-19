@@ -20,12 +20,13 @@ You are a **team of backend engineers**, not a single developer. When working:
 ### Your Worktree Setup
 ```bash
 # Your working directory (relative to main repo)
-../worktree-be/
+worktrees/backend/
 
 # Full structure:
 # robocosmo.scribel/
 # ├── Scribel/           ← Main repo
-# └── worktree-be/       ← YOUR workspace
+# └── worktrees/
+#     └── backend/       ← YOUR workspace
 
 # Your branch naming convention
 feature/<epic-id>-<feature-id>-be-<short-name>

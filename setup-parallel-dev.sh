@@ -5,10 +5,10 @@
 set -e  # Exit on error
 
 BRANCH="${1:-001-jot-storage-vault-indexing}"
-PARENT_DIR="../"  # Parent folder (robocosmo.scribel/)
-FE_DUDES_DIR="${PARENT_DIR}worktree-fe"
-BE_GEEKS_DIR="${PARENT_DIR}worktree-be"
-AI_GODS_DIR="${PARENT_DIR}worktree-ai"
+WORKTREES_DIR="worktrees"
+FE_DUDES_DIR="${WORKTREES_DIR}/frontend"
+BE_GEEKS_DIR="${WORKTREES_DIR}/backend"
+AI_GODS_DIR="${WORKTREES_DIR}/ai"
 
 echo "🚀 Setting up parallel development environment for Scribel"
 echo ""
@@ -18,9 +18,10 @@ echo ""
 echo "Directory Structure:"
 echo "  robocosmo.scribel/"
 echo "  ├── Scribel/           ← Main repo (THE_PO, MASTER_TL, human)"
-echo "  ├── worktree-fe/       ← FE_DUDES workspace"
-echo "  ├── worktree-be/       ← BE_GEEKS workspace"
-echo "  └── worktree-ai/       ← AI_GODS workspace"
+echo "  └── worktrees/"
+echo "      ├── frontend/      ← FE_DUDES workspace"
+echo "      ├── backend/       ← BE_GEEKS workspace"
+echo "      └── ai/            ← AI_GODS workspace"
 echo ""
 
 # Check if we're in the right directory
@@ -41,12 +42,9 @@ if ! git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
 fi
 
 # Check if parent directory exists
-if [ ! -d "$PARENT_DIR" ]; then
-    echo "❌ Error: Parent directory does not exist"
-    echo "Expected structure:"
-    echo "  robocosmo.scribel/"
-    echo "  └── Scribel/  ← You should be here"
-    exit 1
+if [ ! -d "$WORKTREES_DIR" ]; then
+    echo "📁 Creating worktrees directory..."
+    mkdir -p "$WORKTREES_DIR"
 fi
 
 # Clean up existing worktrees if they exist

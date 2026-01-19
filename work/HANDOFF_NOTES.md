@@ -86,7 +86,7 @@ All design documents created in `/specs/001-jot-storage-vault-indexing/`:
 ### Backend Agent (BE_GEEKS)
 **Status**: ⏸️ PAUSED - Ready to Resume
 **Last Updated**: 2026-01-19 17:00
-**Working Directory**: `../worktree-be/` (created via `./setup-parallel-dev.sh`)
+**Working Directory**: `worktrees/backend/` (created via `./setup-parallel-dev.sh`)
 **Progress**: 50% complete (17/34 tasks)
 
 **✅ Completed**:
@@ -111,7 +111,7 @@ All design documents created in `/specs/001-jot-storage-vault-indexing/`:
 ### Frontend Agent (FE_DUDES)
 **Status**: ⏳ NOT STARTED - Ready to Begin
 **Last Updated**: 2026-01-19 17:00
-**Working Directory**: `../worktree-fe/` (created via `./setup-parallel-dev.sh`)
+**Working Directory**: `worktrees/frontend/` (created via `./setup-parallel-dev.sh`)
 **Progress**: 0% complete (0/27 tasks)
 
 **⏳ Can Start Now** (Independent of Backend):

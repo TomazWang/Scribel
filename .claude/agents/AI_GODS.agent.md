@@ -20,12 +20,13 @@ You are a **team of AI/ML engineers**, not a single developer. When working:
 ### Your Worktree Setup
 ```bash
 # Your working directory (relative to main repo)
-../worktree-ai/
+worktrees/ai/
 
 # Full structure:
 # robocosmo.scribel/
 # ├── Scribel/           ← Main repo
-# └── worktree-ai/       ← YOUR workspace
+# └── worktrees/
+#     └── ai/            ← YOUR workspace
 
 # Your branch naming convention
 feature/<epic-id>-<feature-id>-ai-<short-name>

@@ -8,9 +8,9 @@ This guide helps you launch multiple Claude Code agent teams to work on backend,
 
 | Team | Role | Worktree | Implements Code? |
 |------|------|----------|------------------|
-| **FE_DUDES** | Frontend Development | `worktree-fe/` | Yes |
-| **BE_GEEKS** | Backend Development | `worktree-be/` | Yes |
-| **AI_GODS** | AI/ML Development | `worktree-ai/` | Yes |
+| **FE_DUDES** | Frontend Development | `worktrees/frontend/` | Yes |
+| **BE_GEEKS** | Backend Development | `worktrees/backend/` | Yes |
+| **AI_GODS** | AI/ML Development | `worktrees/ai/` | Yes |
 | **THE_PO** | Product Owner | Main repo | No — decisions only |
 | **MASTER_TL** | Tech Lead | Main repo | No — reviews only |
 
@@ -41,19 +41,20 @@ This will create:
 ```
 robocosmo.scribel/
 ├── Scribel/           ← Main repo (THE_PO, MASTER_TL, human)
-├── worktree-fe/       ← FE_DUDES workspace
-├── worktree-be/       ← BE_GEEKS workspace
-└── worktree-ai/       ← AI_GODS workspace
+└── worktrees/
+    ├── frontend/      ← FE_DUDES workspace
+    ├── backend/       ← BE_GEEKS workspace
+    └── ai/            ← AI_GODS workspace
 ```
 
 **Output**:
 ```
 ✅ Worktrees created successfully!
 
-/Users/you/robocosmo.scribel/Scribel         001-jot-storage-vault-indexing
-/Users/you/robocosmo.scribel/worktree-fe     001-jot-storage-vault-indexing
-/Users/you/robocosmo.scribel/worktree-be     001-jot-storage-vault-indexing
-/Users/you/robocosmo.scribel/worktree-ai     001-jot-storage-vault-indexing
+/Users/you/robocosmo.scribel/Scribel              001-jot-storage-vault-indexing
+/Users/you/robocosmo.scribel/worktrees/frontend   001-jot-storage-vault-indexing
+/Users/you/robocosmo.scribel/worktrees/backend    001-jot-storage-vault-indexing
+/Users/you/robocosmo.scribel/worktrees/ai         001-jot-storage-vault-indexing
 ```
 
 ---
@@ -63,7 +64,7 @@ robocosmo.scribel/
 ### Terminal 1: FE_DUDES (Frontend Team)
 
 ```bash
-cd ../worktree-fe
+cd worktrees/frontend
 claude  # or: code .
 ```
 
@@ -86,7 +87,7 @@ IMPORTANT:
 ### Terminal 2: BE_GEEKS (Backend Team)
 
 ```bash
-cd ../worktree-be
+cd worktrees/backend
 claude  # or: code .
 ```
 
@@ -109,7 +110,7 @@ IMPORTANT:
 ### Terminal 3: AI_GODS (AI/ML Team)
 
 ```bash
-cd ../worktree-ai
+cd worktrees/ai
 claude  # or: code .
 ```
 
@@ -296,9 +297,9 @@ cd robocosmo.scribel/Scribel
 ./setup-parallel-dev.sh [branch-name]
 
 # Launch Teams
-cd ../worktree-fe    # FE_DUDES
-cd ../worktree-be    # BE_GEEKS
-cd ../worktree-ai    # AI_GODS
+cd worktrees/frontend    # FE_DUDES
+cd worktrees/backend     # BE_GEEKS
+cd worktrees/ai          # AI_GODS
 
 # Communicate
 # Create: work/handoffs/epic-X-fY-FROM-to-TO.md

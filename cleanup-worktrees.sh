@@ -4,19 +4,20 @@
 
 set -e
 
-PARENT_DIR="../"  # Parent folder (robocosmo.scribel/)
-FE_DUDES_DIR="${PARENT_DIR}worktree-fe"
-BE_GEEKS_DIR="${PARENT_DIR}worktree-be"
-AI_GODS_DIR="${PARENT_DIR}worktree-ai"
+WORKTREES_DIR="worktrees"
+FE_DUDES_DIR="${WORKTREES_DIR}/frontend"
+BE_GEEKS_DIR="${WORKTREES_DIR}/backend"
+AI_GODS_DIR="${WORKTREES_DIR}/ai"
 
 echo "🧹 Cleaning up git worktrees..."
 echo ""
 echo "Directory Structure:"
 echo "  robocosmo.scribel/"
 echo "  ├── Scribel/           ← Main repo (you are here)"
-echo "  ├── worktree-fe/       ← Will be removed"
-echo "  ├── worktree-be/       ← Will be removed"
-echo "  └── worktree-ai/       ← Will be removed"
+echo "  └── worktrees/"
+echo "      ├── frontend/      ← Will be removed"
+echo "      ├── backend/       ← Will be removed"
+echo "      └── ai/            ← Will be removed"
 echo ""
 
 # Check if we're in the right directory
