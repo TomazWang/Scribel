@@ -37,6 +37,9 @@ export function useJots(): UseJotsReturn {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Ref to store snapshot for rollback
+  const rollbackSnapshotRef = useRef<Jot[]>([]);
+
   const loadJots = useCallback(async () => {
     try {
       setLoading(true);
@@ -102,12 +105,9 @@ export function useJots(): UseJotsReturn {
   }, []);
 
   const deleteJot = useCallback(async (id: string) => {
-    // Store original jots for rollback using closure variable
-    let previousJots: Jot[] = [];
-
-    // Optimistic update: remove jot immediately
+    // Store snapshot and perform optimistic update
     setJots(prev => {
-      previousJots = prev;
+      rollbackSnapshotRef.current = prev;
       return prev.filter(jot => jot.id !== id);
     });
 
@@ -121,8 +121,9 @@ export function useJots(): UseJotsReturn {
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete jot';
       console.error('Failed to delete jot:', err);
 
-      // Rollback: restore original jots on error
-      setJots(previousJots);
+      // Rollback: restore from snapshot using functional update
+      // This ensures we're setting the correct value even if state has changed
+      setJots(() => rollbackSnapshotRef.current);
 
       // Set error state after rollback
       setError(errorMessage);
