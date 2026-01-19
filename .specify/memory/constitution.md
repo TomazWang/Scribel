@@ -214,10 +214,10 @@ guidance). The constitution defines WHAT we must achieve; CLAUDE.md guides HOW t
 
 | Document | Location | Purpose |
 |----------|----------|---------|
-| PRD | `PRD.md` | Product requirements, features F1-F11 |
-| Tech Design | `TECH_DESIGN.md` | Architecture and design decisions |
+| PRD | `docs/PRD.md` | Product requirements, features F1-F11 |
+| Tech Design | `docs/TECH_DESIGN.md` | Architecture and design decisions |
 | AI Instructions | `.AI_INSTRUCTION.md` | Core AI guidance and schemas |
-| Epic Plans | `plan/` | Epic and feature planning |
-| Feature Specs | `specs/` | Speckit-generated specifications |
+| Epic Plans | `plan/epic-N-*/` | Epic overviews and feature planning |
+| Feature Specs | `plan/epic-N-*/specs/` | Technical specifications for each feature |
 
 **Version**: 1.0.0 | **Ratified**: 2026-01-14 | **Last Amended**: 2026-01-19

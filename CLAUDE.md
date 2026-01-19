@@ -129,8 +129,8 @@ scribel/
 ### Key Documents
 | Document | Purpose |
 |----------|---------|
-| `PRD.md` | Product requirements, features F1-F11, user personas, success metrics |
-| `TECH_DESIGN.md` | Technical architecture, data flow, API design |
+| `docs/PRD.md` | Product requirements, features F1-F11, user personas, success metrics |
+| `docs/TECH_DESIGN.md` | Technical architecture, data flow, API design |
 | `.AI_INSTRUCTION.md` | Core AI guidance, principles, schemas |
 | `.specify/memory/constitution.md` | Non-negotiable principles, governance |
 
@@ -139,7 +139,7 @@ scribel/
 |----------|---------|
 | `plan/epics.md` | Master epic list with PRD traceability |
 | `plan/epic-N-*/` | Epic overviews and feature plans |
-| `specs/` | Speckit-generated feature specs (spec.md, plan.md, tasks.md) |
+| `plan/epic-N-*/specs/` | Technical specifications for each feature |
 
 ## Notes for Claude Code
 
@@ -151,4 +151,4 @@ scribel/
 - Token budget for Claude API: aim for <100k tokens per request
 - When adding dependencies, prefer lightweight crates (minimize bundle size)
 - Check `plan/epics.md` for current implementation status
-- Reference `PRD.md` for feature requirements (F1-F11)
+- Reference `docs/PRD.md` for feature requirements (F1-F11)

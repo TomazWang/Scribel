@@ -1,45 +1,59 @@
 # Scribel Development Plan
 
-This directory contains the Epic and Feature planning documents for Scribel development.
+This directory contains Epic and Feature planning documents for Scribel development.
 
 ## Structure
 
 ```
 plan/
-├── README.md                 # This file
-├── epics.md                  # All Epics overview
-├── epic-1-foundation/        # Epic 1: Foundation
-│   ├── README.md
+├── README.md                     # This file
+├── epics.md                      # Master epic list with status tracking
+├── epic-1-foundation/            # Epic 1: Foundation (MVP)
+│   ├── README.md                 # Epic overview
 │   ├── feature-1-project-scaffold.md
 │   ├── feature-2-jot-storage.md
 │   ├── feature-3-quick-jot-interface.md
-│   └── feature-4-global-hotkey.md
-├── epic-2-vault-integration/ # Epic 2: Vault Integration
-├── epic-3-intelligence/      # Epic 3: Intelligence (RAG & Search)
-├── epic-4-agentic/           # Epic 4: Agentic Capabilities
-├── epic-5-polish/            # Epic 5: Polish & Enhanced Features
-└── epic-6-advanced/          # Epic 6: Advanced Features (Future)
+│   ├── feature-4-global-hotkey.md
+│   └── specs/                    # Technical specifications
+│       ├── feature-1.2-jot-storage.md
+│       ├── feature-1.3-quick-jot-interface.md
+│       └── feature-1.4-global-hotkey.md
+├── epic-2-vault-integration/     # Epic 2: Vault Integration
+├── epic-3-intelligence/          # Epic 3: Intelligence (RAG & Search)
+├── epic-4-agentic/               # Epic 4: Agentic Capabilities
+├── epic-5-polish/                # Epic 5: Polish & Enhanced Features
+└── epic-6-advanced/              # Epic 6: Advanced Features (Future)
 ```
+
+## Document Hierarchy
+
+| Level | Location | Purpose |
+|-------|----------|---------|
+| **Product** | `docs/PRD.md` | What to build and why |
+| **Architecture** | `docs/TECH_DESIGN.md` | How the system works |
+| **Epic** | `plan/epic-N-*/README.md` | Milestone scope and goals |
+| **Feature** | `plan/epic-N-*/feature-*.md` | Feature requirements (WHAT) |
+| **Spec** | `plan/epic-N-*/specs/*.md` | Technical design (HOW) |
 
 ## Workflow
 
-1. **Epic Planning**: High-level milestones defined in `epics.md`
-2. **Feature Specs**: Each feature has a dedicated markdown file
-3. **Speckit Integration**: Use `/specify` to generate detailed specs, plans, and tasks for each feature
+1. **Epic Planning**: Define milestones in `epics.md`
+2. **Feature Planning**: Create feature files describing requirements
+3. **Spec Writing**: Add detailed specs in `specs/` subfolder
+4. **Implementation**: Use specs to guide code generation
 
-## Keeping Source Documents Updated
-
-When updating or creating specs, **always check and update these source documents if needed**:
-
-| Document | Purpose | Update When... |
-|----------|---------|----------------|
-| `PRD.md` | Up-to-date high-level product overview | Features, requirements, or scope changes |
-| `TECH_DESIGN.md` | Up-to-date high-level architecture & core tech | Architecture, tech stack, or design patterns change |
-
-These documents don't need implementation details, but must stay accurate. If implementation reveals conflicts with the documented design, update the source documents to reflect the actual decisions made.
-
-## Naming Convention
+## Naming Conventions
 
 - Epic folders: `epic-N-short-name/`
-- Feature files: `feature-M-short-name.md`
-- PRD traceability: Reference PRD feature codes (F1-F11) in feature descriptions
+- Feature files: `feature-N-short-name.md`
+- Spec files: `feature-N.M-short-name.md` (in `specs/` subfolder)
+- PRD traceability: Reference PRD feature codes (F1-F11)
+
+## Keeping Documents Updated
+
+When implementation reveals conflicts with documented design, update the source documents:
+
+| Document | Update When... |
+|----------|----------------|
+| `docs/PRD.md` | Features, requirements, or scope changes |
+| `docs/TECH_DESIGN.md` | Architecture, tech stack, or design patterns change |
