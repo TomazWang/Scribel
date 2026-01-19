@@ -1,0 +1,21 @@
+# Handoff Directory
+
+This folder contains handoff documents for team communication.
+
+## Naming Convention
+
+`<epic-id>-<feature-id>-<from>-to-<to>.md`
+
+## Examples
+
+- `epic-1-f1-FE_DUDES-to-BE_GEEKS.md`
+- `epic-1-f2-BE_GEEKS-to-THE_PO.md`
+- `epic-3-f4-AI_GODS-to-MASTER_TL.md`
+
+## Teams
+
+- **FE_DUDES** - Frontend Development Team
+- **BE_GEEKS** - Backend Development Team
+- **AI_GODS** - AI/ML Development Team
+- **THE_PO** - Product Owner (decisions)
+- **MASTER_TL** - Tech Lead (reviews)

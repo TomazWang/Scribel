@@ -29,7 +29,7 @@ function App() {
             className="w-full px-4 py-3 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onKeyDown={(e) => {
               if (e.key === "Enter" && jotInput.trim()) {
-                // TODO: Create jot
+                // Placeholder - will be replaced with JotPanel component (Epic 1, Feature 1.3)
                 console.log("Create jot:", jotInput);
                 setJotInput("");
               }

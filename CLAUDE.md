@@ -194,3 +194,100 @@ Meeting idea: weekly async standups for [[Project X]] #work #meeting
 - When adding dependencies, prefer lightweight crates (minimize bundle size)
 - Check `plan/epics.md` for current implementation status
 - Reference `docs/PRD.md` for feature requirements (F1-F11)
+
+## AI Development Teams
+
+Scribel is developed by five AI agent teams. See `.AI_INSTRUCTION.md` for full details.
+
+### Which Team Am I?
+
+**Check your working directory**:
+```bash
+pwd
+# worktrees/frontend → You are FE_DUDES
+# worktrees/backend  → You are BE_GEEKS
+# worktrees/ai       → You are AI_GODS
+# main repo          → You are THE_PO or MASTER_TL (or human)
+```
+
+### Team Quick Reference
+
+| Team | Worktree | Owns | Test Command |
+|------|----------|------|--------------|
+| **FE_DUDES** | `worktrees/frontend/` | `src/**/*` | `npm test` |
+| **BE_GEEKS** | `worktrees/backend/` | `src-tauri/**/*` | `cargo test` |
+| **AI_GODS** | `worktrees/ai/` | `src-tauri/src/ai/**/*` | `cargo test ai::` |
+| **THE_PO** | main repo | Decisions only | N/A |
+| **MASTER_TL** | main repo | Reviews only | N/A |
+
+### Communication Protocol
+
+#### 1. Handoff Documents (for major communication)
+
+**Location**: `work/handoffs/`
+
+**Create a handoff when**:
+- Completing a feature
+- Blocking on another team
+- Need a decision from THE_PO or MASTER_TL
+- Ready for merge
+
+**Filename**: `<epic-id>-<feature-id>-<from>-to-<to>.md`
+
+#### 2. Code Comments (for inline notes)
+
+```typescript
+// AI-DEV-NOTE: @<TEAM> - <message> -- by @<YOUR_TEAM>
+```
+
+**Examples**:
+```typescript
+// AI-DEV-NOTE: @BE_GEEKS - Need this command to return tags array -- by @FE_DUDES
+// AI-DEV-NOTE: @FE_DUDES - Command ready: invoke('list_jots', {limit}) -- by @BE_GEEKS
+// AI-DEV-NOTE: @THE_PO - Is this the right UX for deletion? -- by @FE_DUDES
+// AI-DEV-NOTE: @MASTER_TL - Review this async pattern please -- by @BE_GEEKS
+```
+
+### Merge Rules
+
+- **Development teams NEVER merge directly**
+- Push your branch and create a handoff to THE_PO when ready
+- THE_PO coordinates with human to execute merge
+- After merge, all teams pull from main
+
+### On Startup Checklist
+
+1. Check `work/handoffs/` for notes addressed to your team
+2. Search codebase for `AI-DEV-NOTE: @YOUR_TEAM`
+3. Read task files relevant to your team
+4. Create handoffs when you need input or are done
+
+### Git Operations
+
+```bash
+# In your worktree
+git status
+git add .
+git commit -m "feat(<area>): description"
+git push origin <branch-name>
+
+# Stay in sync (coordinate first!)
+git pull origin main
+```
+
+### Full Workflow Reference
+See `work/WORKFLOW.md` for:
+- Complete setup instructions
+- Communication protocols
+- Testing strategies
+- Troubleshooting guide
+
+---
+
+## Active Technologies
+- Rust 1.75+ (backend), TypeScript 5.x (frontend) (001-jot-storage-vault-indexing)
+- Markdown files (primary) + SQLite (index cache) (001-jot-storage-vault-indexing)
+
+## Recent Changes
+- 001-jot-storage-vault-indexing: Added Rust 1.75+ (backend), TypeScript 5.x (frontend)
+- Added parallel development workflow with git worktrees (PARALLEL_WORKFLOW.md)
