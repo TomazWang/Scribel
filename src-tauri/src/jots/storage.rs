@@ -8,12 +8,8 @@ use std::path::Path;
 /// Generate unique jot ID: jot-YYYY-MM-DD-HHMMSS-XXXX
 fn generate_jot_id() -> String {
     let now = Utc::now();
-    let hex: String = rand::thread_rng()
-        .sample_iter(&rand::distributions::Alphanumeric)
-        .filter(|c| c.is_ascii_hexdigit())
-        .take(4)
-        .map(|c| c.to_ascii_lowercase())
-        .map(char::from)
+    let hex: String = (0..4)
+        .map(|_| format!("{:x}", rand::thread_rng().gen_range(0..16)))
         .collect();
 
     format!("jot-{}-{}", now.format("%Y-%m-%d-%H%M%S"), hex)
