@@ -13,7 +13,7 @@
 # Step 1: Create feature spec and plan
 /speckit.specify    # Create feature specification
 /speckit.plan       # Generate implementation plan
-# → This creates: specs/[feature-name]/spec.md, plan.md, tasks.md
+# → This creates: specs/epic-N-feat-M-{short-name}/spec.md, plan.md, tasks.md
 # → Defines branch names for each team
 
 # Step 2: Setup parallel worktrees using branch names from plan
@@ -50,7 +50,7 @@ cd worktrees/ai && claude
 robocosmo.scribel/
 ├── Scribel/              ← Main repo (you + THE_PO + MASTER_TL)
 ├── specs/                ← Speckit artifacts (if using Speckit)
-│   └── [feature-name]/
+│   └── epic-N-feat-M-{short-name}/
 │       ├── spec.md
 │       ├── plan.md
 │       └── tasks.md
@@ -322,7 +322,7 @@ find . -name "spec.md" -o -name "plan.md" -o -name "tasks.md"
 
 | Aspect | With Speckit | Without Speckit |
 |--------|-------------|-----------------|
-| **Task Source** | `specs/[feature]/tasks.md` | `work/handoffs/epic-X-TEAM-tasks.md` |
+| **Task Source** | `specs/epic-N-feat-M-{short-name}/tasks.md` | `work/handoffs/epic-X-TEAM-tasks.md` |
 | **Execution** | `/speckit.implement` | Manual implementation |
 | **Structure** | Formal spec → plan → tasks | Informal handoff notes |
 | **Best For** | New features, complex work | Bug fixes, simple tasks |

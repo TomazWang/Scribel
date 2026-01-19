@@ -115,6 +115,30 @@ Start simple, follow YAGNI (You Aren't Gonna Need It) principles.
 | **THE_PO** | Product decisions | Any code |
 | **MASTER_TL** | Technical reviews | Any code |
 
+### Naming Conventions
+
+All artifacts MUST follow consistent naming aligned with `plan/epics`:
+
+**Spec Directories**:
+- Format: `specs/epic-{N}-feat-{M}-{short-name}/`
+- Example: `specs/epic-1-feat-001-jot-storage/`
+- Contains: `spec.md`, `plan.md`, `tasks.md`
+
+**Branch Names**:
+- Format: `feature/epic-{N}-f{M}-{team}-{short-name}`
+- Examples:
+  - `feature/epic-1-f1-fe-jot-input` (FE_DUDES)
+  - `feature/epic-1-f2-be-jot-storage` (BE_GEEKS)
+  - `feature/epic-3-f4-ai-rag-pipeline` (AI_GODS)
+
+**Handoff Documents**:
+- Format: `work/handoffs/epic-{N}-f{M}-{FROM}-to-{TO}.md`
+- Examples:
+  - `epic-1-f1-FE_DUDES-to-BE_GEEKS.md`
+  - `epic-1-f2-BE_GEEKS-to-THE_PO.md`
+
+This ensures traceability from plan → spec → branch → handoff.
+
 ## Governance
 
 This Constitution supersedes all other practices and guidelines. Any deviation from these principles must be:
@@ -138,4 +162,4 @@ This Constitution supersedes all other practices and guidelines. Any deviation f
 
 Use `CLAUDE.md` and `.AI_INSTRUCTION.md` for runtime development guidance.
 
-**Version**: 1.0.0 | **Ratified**: 2025-01-19 | **Last Amended**: 2025-01-19
+**Version**: 1.1.0 | **Ratified**: 2026-01-19 | **Last Amended**: 2026-01-19
