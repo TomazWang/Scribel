@@ -180,9 +180,9 @@ describe('useJots', () => {
       // Temporary jot should be removed (rollback)
       await waitFor(() => {
         expect(result.current.jots).toHaveLength(0);
+        expect(result.current.error).toBe(errorMessage);
       });
 
-      expect(result.current.error).toBe(errorMessage);
       expect(caughtError).toBeInstanceOf(Error);
       expect(caughtError?.message).toBe(errorMessage);
       expect(consoleErrorSpy).toHaveBeenCalled();
@@ -208,16 +208,17 @@ describe('useJots', () => {
         await result.current.createJot('Failed');
       } catch {}
 
-      expect(result.current.error).toBe('First error');
+      await waitFor(() => {
+        expect(result.current.error).toBe('First error');
+      });
 
       // Second creation should clear error
       await result.current.createJot('Success');
 
       await waitFor(() => {
         expect(result.current.jots[0].id).toBe('jot-1');
+        expect(result.current.error).toBeNull();
       });
-
-      expect(result.current.error).toBeNull();
 
       consoleErrorSpy.mockRestore();
     });
@@ -299,11 +300,11 @@ describe('useJots', () => {
       // Jot should be restored (rollback)
       await waitFor(() => {
         expect(result.current.jots).toHaveLength(2);
+        expect(result.current.jots[0].id).toBe('jot-1');
+        expect(result.current.jots[1].id).toBe('jot-2');
+        expect(result.current.error).toBe(errorMessage);
       });
 
-      expect(result.current.jots[0].id).toBe('jot-1');
-      expect(result.current.jots[1].id).toBe('jot-2');
-      expect(result.current.error).toBe(errorMessage);
       expect(caughtError).toBeInstanceOf(Error);
       expect(caughtError?.message).toBe(errorMessage);
       expect(consoleErrorSpy).toHaveBeenCalled();
@@ -329,16 +330,17 @@ describe('useJots', () => {
         await result.current.deleteJot('jot-1');
       } catch {}
 
-      expect(result.current.error).toBe('First error');
+      await waitFor(() => {
+        expect(result.current.error).toBe('First error');
+      });
 
       // Second deletion should clear error
       await result.current.deleteJot('jot-2');
 
       await waitFor(() => {
         expect(result.current.jots).toHaveLength(1);
+        expect(result.current.error).toBeNull();
       });
-
-      expect(result.current.error).toBeNull();
 
       consoleErrorSpy.mockRestore();
     });
@@ -370,7 +372,10 @@ describe('useJots', () => {
     });
 
     it('sets loading state during refresh', async () => {
-      vi.spyOn(jotsApi, 'getJots').mockResolvedValue([mockJot1]);
+      // Add delay to mock so loading state is observable
+      vi.spyOn(jotsApi, 'getJots').mockImplementation(
+        () => new Promise(resolve => setTimeout(() => resolve([mockJot1]), 50))
+      );
 
       const { result } = renderHook(() => useJots());
 
@@ -381,11 +386,15 @@ describe('useJots', () => {
       const refreshPromise = result.current.refresh();
 
       // Should be loading during refresh
-      expect(result.current.loading).toBe(true);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(true);
+      });
 
       await refreshPromise;
 
-      expect(result.current.loading).toBe(false);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
     });
   });
 

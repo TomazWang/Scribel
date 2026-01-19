@@ -36,7 +36,6 @@ export function useJots(): UseJotsReturn {
   const [jots, setJots] = useState<Jot[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const previousJotsRef = useRef<Jot[]>([]);
 
   const loadJots = useCallback(async () => {
     try {
@@ -90,14 +89,12 @@ export function useJots(): UseJotsReturn {
         prev.map(jot => jot.id === tempId ? createdJot : jot)
       );
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to create jot';
-      console.error('Failed to create jot:', err);
-
-      // Set error state BEFORE rollback
-      setError(errorMessage);
-
       // Rollback: remove temp jot on error
       setJots(prev => prev.filter(jot => jot.id !== tempId));
+
+      const errorMessage = err instanceof Error ? err.message : 'Failed to create jot';
+      setError(errorMessage);
+      console.error('Failed to create jot:', err);
 
       // Re-throw for component error handling
       throw err;
@@ -105,13 +102,17 @@ export function useJots(): UseJotsReturn {
   }, []);
 
   const deleteJot = useCallback(async (id: string) => {
-    // Clear error state first, then optimistic update
-    setError(null);
+    // Store original jots for rollback using closure variable
+    let previousJots: Jot[] = [];
+
+    // Optimistic update: remove jot immediately
     setJots(prev => {
-      // Store original jots for rollback in ref
-      previousJotsRef.current = prev;
+      previousJots = prev;
       return prev.filter(jot => jot.id !== id);
     });
+
+    // Clear error state after optimistic update
+    setError(null);
 
     try {
       // Call backend API
@@ -120,11 +121,11 @@ export function useJots(): UseJotsReturn {
       const errorMessage = err instanceof Error ? err.message : 'Failed to delete jot';
       console.error('Failed to delete jot:', err);
 
-      // Set error state BEFORE rollback
-      setError(errorMessage);
+      // Rollback: restore original jots on error
+      setJots(previousJots);
 
-      // Rollback: restore original jots on error from ref
-      setJots(previousJotsRef.current);
+      // Set error state after rollback
+      setError(errorMessage);
 
       // Re-throw for component error handling
       throw err;

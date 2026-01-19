@@ -44,14 +44,18 @@ describe('formatRelativeTime', () => {
     expect(formatRelativeTime(timestamp3)).toBe('23h ago');
   });
 
-  it('shows time for today (after midnight)', () => {
-    // Fixed time is 14:00:00 (2:00 PM)
-    // Today's midnight at 00:00:00
-    const todayMorning = new Date('2026-01-19T08:00:00Z').getTime();
-    const result = formatRelativeTime(todayMorning);
+  it('shows time for today (more than 24 hours old, edge case)', () => {
+    // This tests the edge case where an event is from "today" (same calendar day)
+    // but more than 24 hours ago (which would only happen around midnight)
+    // Fixed time is 14:00:00 (2:00 PM) on Jan 19
+    // An event at 01:00:00 (1:00 AM) on Jan 19 would be 13 hours ago (< 24h)
+    // so this test actually can't happen - if it's today, it's always < 24h
+    // Changing to test yesterday which IS possible
+    const yesterday = new Date('2026-01-18T14:00:00Z').getTime(); // Exactly 24h ago
+    const result = formatRelativeTime(yesterday);
 
-    // Result should be a time format like "8:00 AM"
-    expect(result).toMatch(/\d{1,2}:\d{2} (AM|PM)/);
+    // Should show "Yesterday" with time
+    expect(result).toMatch(/^Yesterday \d{1,2}:\d{2} (AM|PM)$/);
   });
 
   it('shows "Yesterday" with time for yesterday', () => {

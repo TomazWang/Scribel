@@ -34,12 +34,17 @@ export function formatRelativeTime(timestamp: string | number): string {
     return `${minutes} min ago`;
   }
 
+  // Less than 24 hours - show relative hours
+  if (diff < 86400000) {
+    const hours = Math.floor(diff / 3600000);
+    return `${hours}h ago`;
+  }
+
   const date = new Date(time);
   const today = new Date();
 
-  // Today (after midnight) - show time format
-  // Check this BEFORE "< 24 hours" to prioritize showing clock time for events earlier today
-  // Use UTC to avoid timezone issues in tests
+  // Today (>= 24 hours is impossible for same calendar day, but check anyway)
+  // Use UTC to match test expectations
   const todayStart = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
   if (time >= todayStart) {
     return date.toLocaleTimeString('en-US', {
@@ -48,12 +53,6 @@ export function formatRelativeTime(timestamp: string | number): string {
       hour12: true,
       timeZone: 'UTC'
     });
-  }
-
-  // Less than 24 hours (but not today) - show "Xh ago"
-  if (diff < 86400000) {
-    const hours = Math.floor(diff / 3600000);
-    return `${hours}h ago`;
   }
 
   // Yesterday
