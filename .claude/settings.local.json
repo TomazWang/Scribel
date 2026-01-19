@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(ls:*)",
-      "Bash(specify init:*)"
+      "Bash(specify init:*)",
+      "Bash(git mv:*)",
+      "Bash(git add:*)"
     ]
   }
 }

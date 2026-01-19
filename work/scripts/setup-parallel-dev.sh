@@ -36,7 +36,7 @@ if ! git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
     echo "Available branches:"
     git branch -a
     echo ""
-    echo "Usage: ./setup-parallel-dev.sh [branch-name]"
+    echo "Usage: ./work/scripts/setup-parallel-dev.sh [branch-name]"
     echo "Default branch: 001-jot-storage-vault-indexing"
     exit 1
 fi
@@ -58,22 +58,48 @@ done
 
 git worktree prune
 
-# Create worktrees
+# Create team-specific branches from the base branch
+echo ""
+echo "📋 Creating team-specific feature branches..."
+
+# Each team needs its own branch to work on the same feature
+FE_BRANCH="${BRANCH}-fe-$(date +%s)"
+BE_BRANCH="${BRANCH}-be-$(date +%s)"
+AI_BRANCH="${BRANCH}-ai-$(date +%s)"
+
+# Create branches from the base branch
+echo "  Creating branch: $FE_BRANCH"
+git branch "$FE_BRANCH" "$BRANCH" 2>/dev/null || true
+
+echo "  Creating branch: $BE_BRANCH"
+git branch "$BE_BRANCH" "$BRANCH" 2>/dev/null || true
+
+echo "  Creating branch: $AI_BRANCH"
+git branch "$AI_BRANCH" "$BRANCH" 2>/dev/null || true
+
+# Create worktrees with team-specific branches
 echo ""
 echo "📦 Creating FE_DUDES worktree at $FE_DUDES_DIR..."
-git worktree add "$FE_DUDES_DIR" "$BRANCH"
+git worktree add "$FE_DUDES_DIR" "$FE_BRANCH"
 
 echo ""
 echo "📦 Creating BE_GEEKS worktree at $BE_GEEKS_DIR..."
-git worktree add "$BE_GEEKS_DIR" "$BRANCH"
+git worktree add "$BE_GEEKS_DIR" "$BE_BRANCH"
 
 echo ""
 echo "📦 Creating AI_GODS worktree at $AI_GODS_DIR..."
-git worktree add "$AI_GODS_DIR" "$BRANCH"
+git worktree add "$AI_GODS_DIR" "$AI_BRANCH"
 
 # List worktrees
 echo ""
 echo "✅ Worktrees created successfully!"
+echo ""
+echo "📌 Team Branches Created:"
+echo "  • FE_DUDES:  $FE_BRANCH"
+echo "  • BE_GEEKS:  $BE_BRANCH"
+echo "  • AI_GODS:   $AI_BRANCH"
+echo ""
+echo "Each team has their own branch to prevent git worktree conflicts."
 echo ""
 git worktree list
 
@@ -119,11 +145,10 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "📚 Documentation:"
-echo "  • work/WORKFLOW.md         - Complete workflow guide"
-echo "  • work/handoffs/           - Team communication"
-echo "  • work/FE_DUDES_TASKS.md   - Frontend tasks"
-echo "  • work/BE_GEEKS_TASKS.md   - Backend tasks"
-echo "  • work/HANDOFF_NOTES.md    - Status tracking"
+echo "  • work/WORKFLOW.md                        - Complete workflow guide"
+echo "  • work/handoffs/                          - Team communication"
+echo "  • work/handoffs/epic-1/HANDOFF_NOTES.md   - Epic 1 status tracking"
+echo "  • work/handoffs/epic-1/WORKING_LOG.md     - Epic 1 working log"
 echo ""
 echo "📝 Communication:"
 echo "  • Handoffs: work/handoffs/epic-X-fY-TEAM-to-TEAM.md"

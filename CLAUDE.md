@@ -194,93 +194,48 @@ Meeting idea: weekly async standups for [[Project X]] #work #meeting
 - When adding dependencies, prefer lightweight crates (minimize bundle size)
 - Check `plan/epics.md` for current implementation status
 - Reference `docs/PRD.md` for feature requirements (F1-F11)
+- **NEVER proactively create documentation files (*.md) or working logs unless explicitly requested**
+- Working logs (WORKING_LOG.md, HANDOFF_NOTES.md) should only be created by agents during actual squad work, not during setup/consolidation tasks
 
 ## AI Development Teams
 
-Scribel is developed by five AI agent teams. See `.AI_INSTRUCTION.md` for full details.
+Scribel is developed by **five AI agent teams** working in parallel via git worktrees.
 
-### Which Team Am I?
+**For complete parallel development workflow, see [`PARALLEL_WORKFLOW.md`](PARALLEL_WORKFLOW.md).**
 
-**Check your working directory**:
-```bash
-pwd
-# worktrees/frontend → You are FE_DUDES
-# worktrees/backend  → You are BE_GEEKS
-# worktrees/ai       → You are AI_GODS
-# main repo          → You are THE_PO or MASTER_TL (or human)
-```
-
-### Team Quick Reference
+### Quick Reference
 
 | Team | Worktree | Owns | Test Command |
 |------|----------|------|--------------|
 | **FE_DUDES** | `worktrees/frontend/` | `src/**/*` | `npm test` |
-| **BE_GEEKS** | `worktrees/backend/` | `src-tauri/**/*` | `cargo test` |
+| **BE_GEEKS** | `worktrees/backend/` | `src-tauri/**/*` (except `ai/`) | `cargo test` |
 | **AI_GODS** | `worktrees/ai/` | `src-tauri/src/ai/**/*` | `cargo test ai::` |
 | **THE_PO** | main repo | Decisions only | N/A |
 | **MASTER_TL** | main repo | Reviews only | N/A |
 
-### Communication Protocol
+**Which team am I?** Check `pwd`:
+- `worktrees/frontend` → FE_DUDES
+- `worktrees/backend` → BE_GEEKS
+- `worktrees/ai` → AI_GODS
+- main repo → THE_PO, MASTER_TL, or human
 
-#### 1. Handoff Documents (for major communication)
+### Essential Rules
 
-**Location**: `work/handoffs/`
+1. **Communication**: Use `work/handoffs/` documents and `// AI-DEV-NOTE: @TEAM` comments
+2. **File Ownership**: Each team owns specific folders (see table above)
+3. **Merge Policy**: Dev teams NEVER merge directly; create handoffs to THE_PO when ready
+4. **On Startup**: Check `work/handoffs/` for tasks and search for `AI-DEV-NOTE: @YOUR_TEAM`
 
-**Create a handoff when**:
-- Completing a feature
-- Blocking on another team
-- Need a decision from THE_PO or MASTER_TL
-- Ready for merge
+### Setup & Documentation
 
-**Filename**: `<epic-id>-<feature-id>-<from>-to-<to>.md`
+**Setup**: Run `/squad.new` or `./work/scripts/setup-parallel-dev.sh`
 
-#### 2. Code Comments (for inline notes)
-
-```typescript
-// AI-DEV-NOTE: @<TEAM> - <message> -- by @<YOUR_TEAM>
-```
-
-**Examples**:
-```typescript
-// AI-DEV-NOTE: @BE_GEEKS - Need this command to return tags array -- by @FE_DUDES
-// AI-DEV-NOTE: @FE_DUDES - Command ready: invoke('list_jots', {limit}) -- by @BE_GEEKS
-// AI-DEV-NOTE: @THE_PO - Is this the right UX for deletion? -- by @FE_DUDES
-// AI-DEV-NOTE: @MASTER_TL - Review this async pattern please -- by @BE_GEEKS
-```
-
-### Merge Rules
-
-- **Development teams NEVER merge directly**
-- Push your branch and create a handoff to THE_PO when ready
-- THE_PO coordinates with human to execute merge
-- After merge, all teams pull from main
-
-### On Startup Checklist
-
-1. Check `work/handoffs/` for notes addressed to your team
-2. Search codebase for `AI-DEV-NOTE: @YOUR_TEAM`
-3. Read task files relevant to your team
-4. Create handoffs when you need input or are done
-
-### Git Operations
-
-```bash
-# In your worktree
-git status
-git add .
-git commit -m "feat(<area>): description"
-git push origin <branch-name>
-
-# Stay in sync (coordinate first!)
-git pull origin main
-```
-
-### Full Workflow Reference
-See `work/WORKFLOW.md` for:
-- Complete setup instructions
+**Full Details**: See [`PARALLEL_WORKFLOW.md`](PARALLEL_WORKFLOW.md) for:
+- Human quick start guide
+- Complete team workflow
 - Communication protocols
 - Testing strategies
-- Troubleshooting guide
+- Troubleshooting
 
 ---
 

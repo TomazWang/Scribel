@@ -86,7 +86,7 @@ All design documents created in `/specs/001-jot-storage-vault-indexing/`:
 ### Backend Agent (BE_GEEKS)
 **Status**: ⏸️ PAUSED - Ready to Resume
 **Last Updated**: 2026-01-19 17:00
-**Working Directory**: `worktrees/backend/` (created via `./setup-parallel-dev.sh`)
+**Working Directory**: `worktrees/backend/` (created via `./work/scripts/setup-parallel-dev.sh`)
 **Progress**: 50% complete (17/34 tasks)
 
 **✅ Completed**:
@@ -111,7 +111,7 @@ All design documents created in `/specs/001-jot-storage-vault-indexing/`:
 ### Frontend Agent (FE_DUDES)
 **Status**: ⏳ NOT STARTED - Ready to Begin
 **Last Updated**: 2026-01-19 17:00
-**Working Directory**: `worktrees/frontend/` (created via `./setup-parallel-dev.sh`)
+**Working Directory**: `worktrees/frontend/` (created via `./work/scripts/setup-parallel-dev.sh`)
 **Progress**: 0% complete (0/27 tasks)
 
 **⏳ Can Start Now** (Independent of Backend):
@@ -356,10 +356,10 @@ npm test
 | Resource | Path |
 |----------|------|
 | **Workflow Guide** | `work/README.md` |
-| **Backend Tasks (Epic 1)** | `work/handoffs/epic-1-BE_GEEKS-tasks.md` |
-| **Frontend Tasks (Epic 1)** | `work/handoffs/epic-1-FE_DUDES-tasks.md` |
-| **AI Tasks (Epic 1)** | `work/handoffs/epic-1-AI_GODS-tasks.md` |
-| **Working Log** | `work/WORKING_LOG.md` |
+| **Backend Tasks (Epic 1)** | `work/handoffs/epic-1/epic-1-BE_GEEKS-tasks.md` |
+| **Frontend Tasks (Epic 1)** | `work/handoffs/epic-1/epic-1-FE_DUDES-tasks.md` |
+| **AI Tasks (Epic 1)** | `work/handoffs/epic-1/epic-1-AI_GODS-tasks.md` |
+| **Working Log (Epic 1)** | `work/handoffs/epic-1/WORKING_LOG.md` |
 | **Complete Workflow** | `work/WORKFLOW.md` |
 | **Implementation Plan** | `specs/001-jot-storage-vault-indexing/plan.md` |
 | **API Contract** | `specs/001-jot-storage-vault-indexing/contracts/jot-api.md` |

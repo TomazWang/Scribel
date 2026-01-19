@@ -349,7 +349,7 @@ Created comprehensive parallel development workflow using **git worktrees** to e
    - Claude API integration
    - Dependencies on backend
 
-5. **work/HANDOFF_NOTES.md** - Team coordination document
+5. **work/handoffs/epic-1/HANDOFF_NOTES.md** - Team coordination document (this epic)
    - Executive summary
    - Team status tracking (live section for updates)
    - Architecture overview
@@ -358,8 +358,8 @@ Created comprehensive parallel development workflow using **git worktrees** to e
 
 6. **work/README.md** - Quick start guide for parallel development
 
-7. **setup-parallel-dev.sh** - Automated worktree setup script
-8. **cleanup-worktrees.sh** - Worktree cleanup script
+7. **work/scripts/setup-parallel-dev.sh** - Automated worktree setup script
+8. **work/scripts/cleanup-worktrees.sh** - Worktree cleanup script
 
 ### Files Updated
 
@@ -377,7 +377,7 @@ Created comprehensive parallel development workflow using **git worktrees** to e
 
 **Setup** (one-time from main repo):
 ```bash
-./setup-parallel-dev.sh
+./work/scripts/setup-parallel-dev.sh
 ```
 
 This creates the worktree structure:
@@ -416,7 +416,7 @@ claude  # or your AI assistant
 
 **Cleanup** (after done):
 ```bash
-./cleanup-worktrees.sh
+./work/scripts/cleanup-worktrees.sh
 ```
 
 ### Benefits
@@ -429,7 +429,7 @@ claude  # or your AI assistant
 
 ### Example Workflow
 
-1. All teams setup worktrees via `./setup-parallel-dev.sh`
+1. All teams setup worktrees via `./work/scripts/setup-parallel-dev.sh`
 
 2. **BE_GEEKS** (6-8 hours):
    - Implements index.rs
