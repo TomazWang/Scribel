@@ -4,7 +4,11 @@
 
 set -e
 
-WORKTREES_DIR="worktrees"
+# Always work relative to git repository root
+GIT_ROOT=$(git rev-parse --show-toplevel)
+PARENT_DIR=$(dirname "$GIT_ROOT")
+
+WORKTREES_DIR="${PARENT_DIR}/worktrees"
 FE_DUDES_DIR="${WORKTREES_DIR}/frontend"
 BE_GEEKS_DIR="${WORKTREES_DIR}/backend"
 AI_GODS_DIR="${WORKTREES_DIR}/ai"
@@ -20,11 +24,14 @@ echo "      ├── backend/       ← Will be removed"
 echo "      └── ai/            ← Will be removed"
 echo ""
 
-# Check if we're in the right directory
-if [ ! -f "CLAUDE.md" ]; then
-    echo "❌ Error: Must run from repository root (Scribel/)"
+# Check if we're in a git repository
+if [ ! -d "$GIT_ROOT/.git" ]; then
+    echo "❌ Error: Not in a git repository"
     exit 1
 fi
+
+# Change to git root to ensure consistent behavior
+cd "$GIT_ROOT"
 
 # Remove FE_DUDES worktree
 if [ -d "$FE_DUDES_DIR" ]; then

@@ -5,7 +5,12 @@
       "Bash(specify init:*)",
       "Bash(git mv:*)",
       "Bash(git add:*)",
-      "Bash(git rev-parse:*)"
+      "Bash(git rev-parse:*)",
+      "Bash(test:*)",
+      "Bash(chmod:*)",
+      "Bash(./work/scripts/setup-parallel-dev.sh:*)",
+      "Bash(git worktree:*)",
+      "Bash(./work/scripts/cleanup-worktrees.sh:*)"
     ]
   }
 }

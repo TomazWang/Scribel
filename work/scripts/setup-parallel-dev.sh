@@ -4,8 +4,12 @@
 
 set -e  # Exit on error
 
+# Always work relative to git repository root
+GIT_ROOT=$(git rev-parse --show-toplevel)
+PARENT_DIR=$(dirname "$GIT_ROOT")
+
 BRANCH="${1:-001-jot-storage-vault-indexing}"
-WORKTREES_DIR="worktrees"
+WORKTREES_DIR="${PARENT_DIR}/worktrees"
 FE_DUDES_DIR="${WORKTREES_DIR}/frontend"
 BE_GEEKS_DIR="${WORKTREES_DIR}/backend"
 AI_GODS_DIR="${WORKTREES_DIR}/ai"
@@ -24,11 +28,14 @@ echo "      ├── backend/       ← BE_GEEKS workspace"
 echo "      └── ai/            ← AI_GODS workspace"
 echo ""
 
-# Check if we're in the right directory
-if [ ! -f "CLAUDE.md" ]; then
-    echo "❌ Error: Must run from repository root (Scribel/)"
+# Check if we're in a git repository
+if [ ! -d "$GIT_ROOT/.git" ]; then
+    echo "❌ Error: Not in a git repository"
     exit 1
 fi
+
+# Change to git root to ensure consistent behavior
+cd "$GIT_ROOT"
 
 # Check if branch exists
 if ! git rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
