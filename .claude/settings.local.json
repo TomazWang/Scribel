@@ -10,7 +10,8 @@
       "Bash(chmod:*)",
       "Bash(./work/scripts/setup-parallel-dev.sh:*)",
       "Bash(git worktree:*)",
-      "Bash(./work/scripts/cleanup-worktrees.sh:*)"
+      "Bash(./work/scripts/cleanup-worktrees.sh:*)",
+      "Skill(speckit.specify)"
     ]
   }
 }
